@@ -5,6 +5,7 @@ const UserProInfoSchema = new Schema({
   //Atributes for UserProInfo
   phone: Number,
   social: Array,
+  id_firebase: Schema.Types.Mixed,
   email: String,
   expertise: Array
 });
