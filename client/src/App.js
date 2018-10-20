@@ -1,53 +1,159 @@
-import React, { Component, Fragment } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import React, { Component } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect
+} from "react-router-dom";
 import Home from "./pages/Home";
 import Landing from "./pages/Landing";
 import Register from "./pages/Register";
 import PostJob from "./pages/PostJob";
 import SearchJob from "./pages/SearchJob";
 import Settings from "./pages/Settings";
+import NoMatch from "./pages/NoMatch";
 import firebase from "./config/firebase";
 
 class App extends Component {
   state = {
+    auth: false,
+    registered: false,
     user: {}
   };
 
-  componentDidMount() {
+  componentDidMount = () => {
     this.authorizationState();
-  }
+  };
 
-  authorizationState() {
+  authorizationState = () => {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        this.setState({ user });
+        this.setState({ auth: true, registered: user.emailVerified, user });
       } else {
-        this.setState({ user: null });
+        this.setState({ auth: false, registered: false, user: null });
       }
     });
-  }
+  };
+
+  onLogOut = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        this.setState({ auth: false, registered: false, user: null });
+      })
+      .catch(error => {
+        // An error happened
+      });
+  };
+
+  onAuthenticate = async credentials => {
+    if (credentials.register) {
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(credentials.email, credentials.password)
+        .then(user => {
+          this.setState({
+            auth: true,
+            registered: user.emailVerified,
+            user: user
+          });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    } else {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(credentials.email, credentials.password)
+        .then(user => {
+          this.setState({ auth: true, registered: false, user: user });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+  };
 
   render() {
+    const auth = this.state.auth;
+    const registered = this.state.registered;
+    console.log(auth);
+    console.log(registered);
     return (
-      <Fragment>
-        {this.state.user ? (
-          <Router>
-            <Switch>
-              <Route exact path="/register" component={Register} />
-              <Route exact path="/home" component={Home} />
-              <Route exact path="/post" component={PostJob} />
-              <Route exact path="/search" component={SearchJob} />
-              <Route exact path="/settings" component={Settings} />
-            </Switch>
-          </Router>
-        ) : (
-          <Router>
-            <Switch>
-              <Route exact path="/" component={Landing} />
-            </Switch>
-          </Router>
-        )}
-      </Fragment>
+      <Router>
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={() =>
+              !auth ? (
+                <Landing onAuthenticate={this.onAuthenticate} />
+              ) : (
+                <Redirect to="/Register" />
+              )
+            }
+          />
+          <Route
+            exact
+            path="/Register"
+            render={() =>
+              !auth ? (
+                <Redirect to="/" />
+              ) : auth && !registered ? (
+                <Register onLogOut={this.onLogOut} />
+              ) : (
+                <Redirect to="/Home" />
+              )
+            }
+          />
+          <Route
+            exact
+            path="/Home"
+            render={() =>
+              auth && registered ? (
+                <Home onLogOut={this.onLogOut} />
+              ) : (
+                <Redirect to="/" />
+              )
+            }
+          />
+          <Route
+            exact
+            path="/Settings"
+            render={() =>
+              auth && registered ? (
+                <Settings onLogOut={this.onLogOut} />
+              ) : (
+                <Redirect to="/" />
+              )
+            }
+          />
+          <Route
+            exact
+            path="/Search"
+            render={() =>
+              auth && registered ? (
+                <SearchJob onLogOut={this.onLogOut} />
+              ) : (
+                <Redirect to="/" />
+              )
+            }
+          />
+          <Route
+            exact
+            path="/Post"
+            render={() =>
+              auth && registered ? (
+                <PostJob onLogOut={this.onLogOut} />
+              ) : (
+                <Redirect to="/" />
+              )
+            }
+          />
+          <Route exact component={NoMatch} />
+        </Switch>
+      </Router>
     );
   }
 }

@@ -6,7 +6,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
-import AuthBtn from "../../components/AuthBtn";
+import Button from "@material-ui/core/Button";
 
 const styles = {
   root: {
@@ -48,18 +48,8 @@ function ButtonAppBar(props) {
             <Typography variant="h3" className={classes.grow}>
               SideGig
             </Typography>
-            <AuthBtn
-              linkMessage="Log In"
-              tittle="Welcome back"
-              register={false}
-              onAuthenticate={onAuthenticate}
-            />
-            <AuthBtn
-              linkMessage="Register"
-              tittle="Create your acount"
-              register={true}
-              onAuthenticate={onAuthenticate}
-            />
+
+            <Button onClick={props.onLogOut}>LogOut</Button>
           </Toolbar>
         </AppBar>
       </div>

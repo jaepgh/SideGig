@@ -6,10 +6,11 @@ import Stepper from "../../components/Stepper";
 class Landing extends Component {
   state = {};
   render() {
+    const { onAuthenticate } = this.props;
     return (
       <div>
         <React.Fragment>
-          <AppBar />
+          <AppBar onAuthenticate={onAuthenticate} />
           <Stepper />
           <Howitworks />
         </React.Fragment>

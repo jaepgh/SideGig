@@ -6,7 +6,6 @@ const NoMatch = () => (
     <h1>
       <span role="img" aria-label="Face With Rolling Eyes Emoji">
         🙄
-        {console.log("Hello from the NoMatch section!")}
       </span>
     </h1>
   </div>

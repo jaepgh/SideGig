@@ -1,22 +1,16 @@
-import React, { Fragment } from "react";
+import React from "react";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import PropTypes from "prop-types";
-import Avatar from "@material-ui/core/Avatar";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
-import LockIcon from "@material-ui/icons/LockOutlined";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
-import DialogContentText from "@material-ui/core/DialogContentText";
 
 const styles = theme => ({
   layout: {
@@ -50,7 +44,19 @@ const styles = theme => ({
 
 class SignIn extends React.Component {
   state = {
-    open: false
+    open: false,
+    email: "",
+    password: "",
+    remember: false,
+    register: this.props.register
+  };
+
+  handleChange = prop => event => {
+    this.setState({ [prop]: event.target.value });
+  };
+
+  handleCheckedChange = prop => event => {
+    this.setState({ [prop]: event.target.checked });
   };
 
   handleClickOpen = () => {
@@ -59,6 +65,26 @@ class SignIn extends React.Component {
 
   handleClose = () => {
     this.setState({ open: false });
+  };
+
+  handleSubmit = () => {
+    //Handle validation first
+    const credentials = {
+      email: this.state.email,
+      password: this.state.password,
+      remember: this.state.remember,
+      register: this.state.register
+    };
+
+    this.props.onAuthenticate(credentials);
+
+    this.setState({
+      open: false,
+      email: "",
+      password: "",
+      remember: false,
+      register: ""
+    });
   };
 
   render() {
@@ -86,6 +112,7 @@ class SignIn extends React.Component {
                     name="email"
                     autoComplete="email"
                     autoFocus
+                    onChange={this.handleChange("email")}
                   />
                 </FormControl>
                 <FormControl margin="normal" required fullWidth>
@@ -95,19 +122,20 @@ class SignIn extends React.Component {
                     type="password"
                     id="password"
                     autoComplete="current-password"
+                    onChange={this.handleChange("password")}
                   />
                 </FormControl>
                 <FormControlLabel
                   control={<Checkbox value="remember" color="primary" />}
                   label="Remember me"
+                  onChange={this.handleCheckedChange("remember")}
                 />
                 <Button
-                  type="submit"
                   fullWidth
                   variant="contained"
                   color="primary"
                   className={classes.submit}
-                  onClick={this.handleClose}
+                  onClick={this.handleSubmit}
                 >
                   {linkMessage}
                 </Button>

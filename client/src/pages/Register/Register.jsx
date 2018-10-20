@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import AppBar from "../../components/AppBar";
+import AppBarSimple from "../../components/AppBarSimple";
 import Checkout from "../../components/CheckOut";
 
 class Register extends Component {
@@ -8,7 +8,7 @@ class Register extends Component {
     return (
       <div>
         <React.Fragment>
-          <AppBar />
+          <AppBarSimple onLogOut={this.props.onLogOut} />
           <Checkout />
         </React.Fragment>
       </div>
