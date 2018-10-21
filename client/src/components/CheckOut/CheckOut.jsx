@@ -2,8 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
 import Paper from "@material-ui/core/Paper";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
@@ -52,22 +50,31 @@ const styles = theme => ({
 
 const steps = ["Contact information", "Professional information"];
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <AddressForm />;
-    case 1:
-      return <ProfessionalInfo />;
-
-    default:
-      throw new Error("Unknown step");
-  }
-}
-
 class Checkout extends React.Component {
   state = {
     activeStep: 0,
-    checkedB: true
+    checkedB: true,
+    file: "",
+
+    //Personal section
+    imagePreviewUrl: "https://openclipart.org/download/288063/user_upload.svg",
+    firstName: "",
+    lastName: "",
+    address: "",
+    city: "",
+    state: "",
+    zipCode: "",
+    country: "",
+    phonePersonal: "",
+
+    //Profesional section
+    profesional: true,
+    expertises: [],
+    media: true,
+    facebook: "",
+    instagram: "",
+    linkedin: "",
+    twitter: ""
   };
 
   handleNext = () => {
@@ -86,6 +93,69 @@ class Checkout extends React.Component {
     this.setState({
       activeStep: 0
     });
+  };
+
+  handleChange = prop => event => {
+    this.setState({ [prop]: event.target.value });
+  };
+
+  handleCheckedChange = prop => event => {
+    this.setState({ [prop]: event.target.checked });
+  };
+
+  handleSelection = e => {
+    console.log(e.target.files[0].name);
+    e.preventDefault();
+
+    let reader = new FileReader();
+    let file = e.target.files[0];
+
+    reader.onloadend = () => {
+      this.setState({
+        file: file,
+        imagePreviewUrl: reader.result
+      });
+    };
+
+    reader.readAsDataURL(file);
+  };
+
+  getStepContent = step => {
+    switch (step) {
+      case 0:
+        return (
+          <AddressForm
+            onSelection={this.handleSelection}
+            selectedAvatar={this.state.imagePreviewUrl}
+            onChange={this.handleChange}
+            firstName={this.state.firstName}
+            lastName={this.state.lastName}
+            address={this.state.address}
+            city={this.state.city}
+            state={this.state.state}
+            zipCode={this.state.zipCode}
+            country={this.state.country}
+            phonePersonal={this.state.phonePersonal}
+          />
+        );
+      case 1:
+        return (
+          <ProfessionalInfo
+            onChange={this.handleChange}
+            onChecked={this.handleCheckedChange}
+            profesional={this.state.profesional}
+            expertises={this.state.expertises}
+            media={this.state.media}
+            facebook={this.state.facebook}
+            instagram={this.state.instagram}
+            linkedin={this.state.linkedin}
+            twitter={this.state.twitter}
+          />
+        );
+
+      default:
+        throw new Error("Unknown step");
+    }
   };
 
   render() {
@@ -120,7 +190,7 @@ class Checkout extends React.Component {
                 </React.Fragment>
               ) : (
                 <React.Fragment>
-                  {getStepContent(activeStep)}
+                  {this.getStepContent(activeStep)}
                   <div className={classes.buttons}>
                     {activeStep !== 0 && (
                       <Button

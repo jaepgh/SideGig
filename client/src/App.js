@@ -78,8 +78,6 @@ class App extends Component {
   render() {
     const auth = this.state.auth;
     const registered = this.state.registered;
-    console.log(auth);
-    console.log(registered);
     return (
       <Router>
         <Switch>

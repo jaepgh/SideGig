@@ -6,9 +6,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import { SocialIcon } from "react-social-icons";
 
-import Button from "@material-ui/core/Button";
-
-function AddressForm() {
+const ProfesionalInfo = props => {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -18,26 +16,15 @@ function AddressForm() {
         <Grid item xs={12}>
           <FormControlLabel
             control={
-              <Checkbox color="primary" name="saveAddress" value="yes" />
+              <Checkbox
+                color="primary"
+                name="profesional"
+                checked={props.profesional}
+                onChange={props.onChecked("profesional")}
+              />
             }
             label="I would like to recieve Job Notifications (required if you want to view and accept Jobs)"
           />
-        </Grid>
-        <Typography variant="h6" gutterBottom>
-          Upload Profile photo or avatar
-        </Typography>
-        <Grid item xs={12}>
-          <input
-            accept="image/*"
-            id="contained-button-file"
-            multiple
-            type="file"
-          />
-          <label htmlFor="contained-button-file">
-            <Button variant="contained" component="span">
-              Upload
-            </Button>
-          </label>
         </Grid>
         <Grid item xs={12}>
           <Typography variant="h6" gutterBottom>
@@ -115,7 +102,12 @@ function AddressForm() {
         <Grid item xs={12}>
           <FormControlLabel
             control={
-              <Checkbox color="primary" name="saveAddress" value="yes" />
+              <Checkbox
+                color="primary"
+                name="media"
+                checked={props.media}
+                onChange={props.onChecked("media")}
+              />
             }
             label="Show Social Media on Profile"
           />
@@ -135,31 +127,37 @@ function AddressForm() {
         <Grid item xs={12} sm={3}>
           <TextField
             required
-            id="Facebook"
-            name="Facebook"
+            id="facebook"
+            name="facebook"
             label="Facebook"
             fullWidth
             autoComplete="Facebook"
+            onChange={props.onChange("facebook")}
+            value={props.facebook}
           />
         </Grid>
         <Grid item xs={12} sm={3}>
           <TextField
             required
-            id="Instagram"
-            name="Instagram"
+            id="instagram"
+            name="instagram"
             label="Instagram"
             fullWidth
             autoComplete="Instagram"
+            onChange={props.onChange("instagram")}
+            value={props.instagram}
           />
         </Grid>
         <Grid item xs={12} sm={3}>
           <TextField
             required
-            id="Linkedin"
-            name="Linkedin"
+            id="linkedin"
+            name="linkedin"
             label="Linkedin"
             fullWidth
             autoComplete="Linkedin"
+            onChange={props.onChange("linkedin")}
+            value={props.linkedin}
           />
         </Grid>
         <Grid item xs={12} sm={3}>
@@ -170,11 +168,13 @@ function AddressForm() {
             label="Twitter"
             fullWidth
             autoComplete="Twitter"
+            onChange={props.onChange("twitter")}
+            value={props.twitter}
           />
         </Grid>
       </Grid>
     </React.Fragment>
   );
-}
+};
 
-export default AddressForm;
+export default ProfesionalInfo;
