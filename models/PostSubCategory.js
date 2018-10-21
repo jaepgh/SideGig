@@ -3,8 +3,9 @@ const Schema = mongoose.Schema;
 
 const PostSubCategorySchema = new Schema({
   //Atributes for PostSubCategory
-  name: String,
-  description: String
+  sub_cat: {
+    name: String
+  }
 });
 
 const PostSubCategory = mongoose.model(
