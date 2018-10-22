@@ -1,14 +1,18 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const ObjectId= Schema.ObjectId;
+
 
 const NotificationSchema = new Schema({
   //Atributes for Notification
-  posting_id: ObjectId,
+  posting_id: String,
   title: String,
   description: String,
   read: Boolean,
-  user_id: ObjectId,
+  id_firebase: {
+    type: String,
+    trim: true,
+    required: "Username is Required"
+  },
   user_id_receiver: Boolean
 
 });
