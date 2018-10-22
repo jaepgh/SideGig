@@ -4,7 +4,7 @@ const postCategoryRoutes = require("./postCategory");
 const postInfoRoutes = require("./postInfo");
 const postPhotosRoutes = require("./postPhotos");
 const postSubCategoryRoutes = require("./postSubCategory");
-const userProInfoRoutes = require("./userProInfo");
+const UserInfoRoutes = require("./userInfo");
 
 // Routes
 router.use("/notification", notificationRoutes);
@@ -12,6 +12,6 @@ router.use("/postCategory", postCategoryRoutes);
 router.use("/postInfo", postInfoRoutes);
 router.use("/postPhotos", postPhotosRoutes);
 router.use("/postSubCategory", postSubCategoryRoutes);
-router.use("/userProInfo", userProInfoRoutes);
+router.use("/UserInfo", UserInfoRoutes);
 
 module.exports = router;

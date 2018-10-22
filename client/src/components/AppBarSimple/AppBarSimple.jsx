@@ -33,7 +33,7 @@ const styles = {
 };
 
 function ButtonAppBar(props) {
-  const { classes, onAuthenticate } = props;
+  const { classes } = props;
   return (
     <div>
       <div className={classes.row} />

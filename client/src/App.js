@@ -28,7 +28,11 @@ class App extends Component {
   authorizationState = () => {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        this.setState({ auth: true, registered: user.emailVerified, user });
+        this.setState({
+          auth: true,
+          registered: user.displayName ? true : false,
+          user
+        });
       } else {
         this.setState({ auth: false, registered: false, user: null });
       }
@@ -47,7 +51,19 @@ class App extends Component {
       });
   };
 
-  onAuthenticate = async credentials => {
+  onRegister = name => {
+    firebase
+      .auth()
+      .currentUser.updateProfile({ displayName: name })
+      .then(() => {
+        this.setState({ auth: true, registered: true });
+      })
+      .catch(error => {
+        // An error happened
+      });
+  };
+
+  onAuthenticate = credentials => {
     if (credentials.register) {
       firebase
         .auth()
@@ -55,7 +71,7 @@ class App extends Component {
         .then(user => {
           this.setState({
             auth: true,
-            registered: user.emailVerified,
+            registered: user.displayName ? true : false,
             user: user
           });
         })
@@ -88,7 +104,11 @@ class App extends Component {
               !auth ? (
                 <Landing onAuthenticate={this.onAuthenticate} />
               ) : (
-                <Redirect to="/Register" />
+                <Redirect
+                  to="/Register"
+                  onRegister={this.onRegister}
+                  id_firebase={this.state.user.uid}
+                />
               )
             }
           />
@@ -99,7 +119,11 @@ class App extends Component {
               !auth ? (
                 <Redirect to="/" />
               ) : auth && !registered ? (
-                <Register onLogOut={this.onLogOut} />
+                <Register
+                  onLogOut={this.onLogOut}
+                  onRegister={this.onRegister}
+                  id_firebase={this.state.user.uid}
+                />
               ) : (
                 <Redirect to="/Home" />
               )

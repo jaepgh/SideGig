@@ -4,5 +4,5 @@ module.exports = {
   PostCategory: require("./PostCategory"),
   PostSubCategory: require("./PostSubCategory"),
   Notification: require("./Notification"),
-  UserProInfo: require("./UserProInfo")
+  UserInfo: require("./UserInfo")
 };

@@ -9,7 +9,10 @@ class Register extends Component {
       <div>
         <React.Fragment>
           <AppBarSimple onLogOut={this.props.onLogOut} />
-          <Checkout />
+          <Checkout
+            onRegister={this.props.onRegister}
+            id_firebase={this.props.id_firebase}
+          />
         </React.Fragment>
       </div>
     );
