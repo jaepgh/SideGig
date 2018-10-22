@@ -128,10 +128,9 @@ class Checkout extends React.Component {
         },
         expertises: this.state.expertises
       };
-
       API.saveUserInfo(newUser).then(
-        this.props.onRegister(this.state.firstName)
-      );
+       this.props.onRegister(this.state.firstName)
+      ).catch(err => console.log(err));
     }
 
     this.setState(state => ({
