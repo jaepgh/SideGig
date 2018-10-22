@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import AppBar from "../../components/AppBar";
-import Howitworks from "../../components/HowItWorks";
+import Users from "../../components/Users";
 import Stepper from "../../components/Stepper";
+import Contractors from "../../components/Contractors";
 
 class Landing extends Component {
   state = {};
@@ -12,7 +13,8 @@ class Landing extends Component {
         <React.Fragment>
           <AppBar onAuthenticate={onAuthenticate} />
           <Stepper />
-          <Howitworks />
+          <Users />
+          <Contractors />
         </React.Fragment>
       </div>
     );
