@@ -11,12 +11,18 @@ export default {
     return axios.post("/api/userInfo", userData);
   },
 
-  // Gets the book with the given id
-  getBook: function(id) {
-    return axios.get("/api/books/" + id);
+  // Gets the user with the given id
+  getUserInfo: function(id) {
+    return axios.get("/api/UserInfo/" + id);
   },
-  // Deletes the book with the given id
-  deleteBook: function(id) {
-    return axios.delete("/api/books/" + id);
+
+  // Updates the user with the given id
+  updateUserInfo: function(id, userData) {
+    return axios.put("/api/UserInfo/" + id, userData);
+  },
+
+  // Deletes the user with the given id
+  deleteUser: function(id) {
+    return axios.delete("/api/UserInfo/" + id);
   }
 };

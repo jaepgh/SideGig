@@ -19,6 +19,7 @@ const UserInfoSchema = new Schema({
     zipCode: { type: String, required: true },
     country: { type: String, required: true }
   },
+  phonePersonal: { type: String, required: true },
   imagePreviewUrl: { type: String },
 
   //Profesional Info

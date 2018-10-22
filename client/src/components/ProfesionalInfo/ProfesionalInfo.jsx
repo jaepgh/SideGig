@@ -10,14 +10,7 @@ import CategoryCheckBox from "../CategoryCheckBox";
 import API from "../../utils/API";
 
 class ProfesionalInfo extends Component {
-  state = { categories: [] };
-  componentDidMount() {
-    API.getCategories()
-      .then(res => {
-        this.setState({ categories: res.data });
-      })
-      .catch(err => console.log(err));
-  }
+  state = {};
 
   render() {
     return (
@@ -46,12 +39,14 @@ class ProfesionalInfo extends Component {
           </Grid>
           <Grid item xs={12}>
             <FormGroup row>
-              {this.state.categories.map(element => (
+              {this.props.categories.map(element => (
                 <CategoryCheckBox
+                  key={element._id}
                   disabled={!this.props.profesional}
                   id={element._id}
                   value={element._id}
                   name={element.name}
+                  ifChecked={element.checked}
                   expertisesChange={this.props.expertisesChange}
                 />
               ))}

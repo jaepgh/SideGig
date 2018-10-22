@@ -13,6 +13,7 @@ const CategoryCheckBox = props => {
             id={props.id}
             value={props.value}
             color="primary"
+            checked={props.ifChecked}
             onChange={props.expertisesChange("expertises")}
           />
         }

@@ -56,6 +56,7 @@ class Checkout extends React.Component {
   state = {
     activeStep: 0,
     checkedB: true,
+    categories: [],
 
     //Personal section
     id_firebase: this.props.id_firebase,
@@ -81,7 +82,22 @@ class Checkout extends React.Component {
     linkedin: "",
     twitter: ""
   };
-
+  componentDidMount() {
+    API.getCategories()
+      .then(res => {
+        const categories = res.data;
+        if (this.state.expertises)
+          categories.forEach(element => {
+            if (this.state.expertises.find(e => e === element._id)) {
+              element.checked = true;
+            } else {
+              element.checked = false;
+            }
+          });
+        this.setState({ categories: categories });
+      })
+      .catch(err => console.log(err));
+  }
   handleNext = () => {
     if (this.state.activeStep + 1 === 2) {
       const newUser = {
@@ -96,6 +112,7 @@ class Checkout extends React.Component {
             zipCode: this.state.zipCode,
             country: this.state.country
           },
+          phonePersonal: this.state.phonePersonal,
           imagePreviewUrl: this.state.imagePreviewUrl,
           profesional: this.state.profesional,
           emailBussiness: this.state.emailBussiness,
@@ -146,9 +163,17 @@ class Checkout extends React.Component {
     let expertises = [...this.state.expertises];
 
     if (event.target.checked) {
+      //Check
       expertises.push(event.target.value);
+      this.state.categories.find(
+        e => e._id === event.target.value
+      ).checked = true;
     } else {
+      //Uncheck
       expertises = expertises.filter(element => element !== event.target.value);
+      this.state.categories.find(
+        e => e._id === event.target.value
+      ).checked = false;
     }
 
     this.setState({ [prop]: expertises });
@@ -211,8 +236,10 @@ class Checkout extends React.Component {
             onChange={this.handleChange}
             onChecked={this.handleCheckedChange}
             expertisesChange={this.handleExpertisesChange}
+            phoneBussiness={this.state.phoneBussiness}
+            emailBussiness={this.state.emailBussiness}
             profesional={this.state.profesional}
-            expertises={this.state.expertises}
+            categories={this.state.categories}
             media={this.state.media}
             facebook={this.state.facebook}
             instagram={this.state.instagram}

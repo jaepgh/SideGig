@@ -1,10 +1,11 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import {
   BrowserRouter as Router,
   Route,
   Switch,
   Redirect
 } from "react-router-dom";
+import createHistory from "history/createBrowserHistory";
 import Home from "./pages/Home";
 import Landing from "./pages/Landing";
 import Register from "./pages/Register";
@@ -14,7 +15,13 @@ import Settings from "./pages/Settings";
 import NoMatch from "./pages/NoMatch";
 import firebase from "./config/firebase";
 
+const history = createHistory();
+
 class App extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   state = {
     auth: false,
     registered: false,
@@ -44,7 +51,9 @@ class App extends Component {
       .auth()
       .signOut()
       .then(() => {
+        history.push("/");
         this.setState({ auth: false, registered: false, user: null });
+        window.location.reload();
       })
       .catch(error => {
         // An error happened
@@ -95,7 +104,7 @@ class App extends Component {
     const auth = this.state.auth;
     const registered = this.state.registered;
     return (
-      <Router>
+      <Router history={history}>
         <Switch>
           <Route
             exact
@@ -133,21 +142,20 @@ class App extends Component {
             exact
             path="/Home"
             render={() =>
-              auth && registered ? (
-                <Home onLogOut={this.onLogOut} />
-              ) : (
-                <Redirect to="/" />
-              )
+              registered ? <Home onLogOut={this.onLogOut} /> : <Fragment />
             }
           />
           <Route
             exact
             path="/Settings"
             render={() =>
-              auth && registered ? (
-                <Settings onLogOut={this.onLogOut} />
+              registered ? (
+                <Settings
+                  onLogOut={this.onLogOut}
+                  id_firebase={this.state.user.uid}
+                />
               ) : (
-                <Redirect to="/" />
+                <Fragment />
               )
             }
           />
@@ -155,22 +163,14 @@ class App extends Component {
             exact
             path="/Search"
             render={() =>
-              auth && registered ? (
-                <SearchJob onLogOut={this.onLogOut} />
-              ) : (
-                <Redirect to="/" />
-              )
+              registered ? <SearchJob onLogOut={this.onLogOut} /> : <Fragment />
             }
           />
           <Route
             exact
             path="/Post"
             render={() =>
-              auth && registered ? (
-                <PostJob onLogOut={this.onLogOut} />
-              ) : (
-                <Redirect to="/" />
-              )
+              registered ? <PostJob onLogOut={this.onLogOut} /> : <Fragment />
             }
           />
           <Route exact component={NoMatch} />
