@@ -1,10 +1,11 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import {
   BrowserRouter as Router,
   Route,
   Switch,
   Redirect
 } from "react-router-dom";
+import createHistory from "history/createBrowserHistory";
 import Home from "./pages/Home";
 import Landing from "./pages/Landing";
 import Register from "./pages/Register";
@@ -14,7 +15,13 @@ import Settings from "./pages/Settings";
 import NoMatch from "./pages/NoMatch";
 import firebase from "./config/firebase";
 
+const history = createHistory();
+
 class App extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   state = {
     auth: false,
     registered: false,
@@ -28,7 +35,11 @@ class App extends Component {
   authorizationState = () => {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        this.setState({ auth: true, registered: user.emailVerified, user });
+        this.setState({
+          auth: true,
+          registered: user.displayName ? true : false,
+          user
+        });
       } else {
         this.setState({ auth: false, registered: false, user: null });
       }
@@ -40,14 +51,28 @@ class App extends Component {
       .auth()
       .signOut()
       .then(() => {
+        history.push("/");
         this.setState({ auth: false, registered: false, user: null });
+        window.location.reload();
       })
       .catch(error => {
         // An error happened
       });
   };
 
-  onAuthenticate = async credentials => {
+  onRegister = name => {
+    firebase
+      .auth()
+      .currentUser.updateProfile({ displayName: name })
+      .then(() => {
+        this.setState({ auth: true, registered: true });
+      })
+      .catch(error => {
+        // An error happened
+      });
+  };
+
+  onAuthenticate = credentials => {
     if (credentials.register) {
       firebase
         .auth()
@@ -55,7 +80,7 @@ class App extends Component {
         .then(user => {
           this.setState({
             auth: true,
-            registered: user.emailVerified,
+            registered: user.displayName ? true : false,
             user: user
           });
         })
@@ -79,7 +104,7 @@ class App extends Component {
     const auth = this.state.auth;
     const registered = this.state.registered;
     return (
-      <Router>
+      <Router history={history}>
         <Switch>
           <Route
             exact
@@ -88,7 +113,11 @@ class App extends Component {
               !auth ? (
                 <Landing onAuthenticate={this.onAuthenticate} />
               ) : (
-                <Redirect to="/Register" />
+                <Redirect
+                  to="/Register"
+                  onRegister={this.onRegister}
+                  id_firebase={this.state.user.uid}
+                />
               )
             }
           />
@@ -99,7 +128,11 @@ class App extends Component {
               !auth ? (
                 <Redirect to="/" />
               ) : auth && !registered ? (
-                <Register onLogOut={this.onLogOut} />
+                <Register
+                  onLogOut={this.onLogOut}
+                  onRegister={this.onRegister}
+                  id_firebase={this.state.user.uid}
+                />
               ) : (
                 <Redirect to="/Home" />
               )
@@ -109,21 +142,20 @@ class App extends Component {
             exact
             path="/Home"
             render={() =>
-              auth && registered ? (
-                <Home onLogOut={this.onLogOut} />
-              ) : (
-                <Redirect to="/" />
-              )
+              registered ? <Home onLogOut={this.onLogOut} /> : <Fragment />
             }
           />
           <Route
             exact
             path="/Settings"
             render={() =>
-              auth && registered ? (
-                <Settings onLogOut={this.onLogOut} />
+              registered ? (
+                <Settings
+                  onLogOut={this.onLogOut}
+                  id_firebase={this.state.user.uid}
+                />
               ) : (
-                <Redirect to="/" />
+                <Fragment />
               )
             }
           />
@@ -131,22 +163,14 @@ class App extends Component {
             exact
             path="/Search"
             render={() =>
-              auth && registered ? (
-                <SearchJob onLogOut={this.onLogOut} />
-              ) : (
-                <Redirect to="/" />
-              )
+              registered ? <SearchJob onLogOut={this.onLogOut} /> : <Fragment />
             }
           />
           <Route
             exact
             path="/Post"
             render={() =>
-              auth && registered ? (
-                <PostJob onLogOut={this.onLogOut} />
-              ) : (
-                <Redirect to="/" />
-              )
+              registered ? <PostJob onLogOut={this.onLogOut} /> : <Fragment />
             }
           />
           <Route exact component={NoMatch} />

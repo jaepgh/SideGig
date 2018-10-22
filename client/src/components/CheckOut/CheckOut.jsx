@@ -10,6 +10,8 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import AddressForm from "../AddressForm";
 import ProfessionalInfo from "../ProfesionalInfo";
+import API from "../../utils/API";
+import STORAGE from "../../utils/STORAGE";
 
 const styles = theme => ({
   appBar: {
@@ -54,9 +56,11 @@ class Checkout extends React.Component {
   state = {
     activeStep: 0,
     checkedB: true,
-    file: "",
+    categories: [],
 
     //Personal section
+    id_firebase: this.props.id_firebase,
+    file: "",
     imagePreviewUrl: "https://openclipart.org/download/288063/user_upload.svg",
     firstName: "",
     lastName: "",
@@ -70,14 +74,66 @@ class Checkout extends React.Component {
     //Profesional section
     profesional: true,
     expertises: [],
+    phoneBussiness: "",
+    emailBussiness: "",
     media: true,
     facebook: "",
     instagram: "",
     linkedin: "",
     twitter: ""
   };
-
+  componentDidMount() {
+    API.getCategories()
+      .then(res => {
+        const categories = res.data;
+        if (this.state.expertises)
+          categories.forEach(element => {
+            if (this.state.expertises.find(e => e === element._id)) {
+              element.checked = true;
+            } else {
+              element.checked = false;
+            }
+          });
+        this.setState({ categories: categories });
+      })
+      .catch(err => console.log(err));
+  }
   handleNext = () => {
+    if (this.state.activeStep + 1 === 2) {
+      const newUser = {
+        user: {
+          id_firebase: this.state.id_firebase,
+          firstName: this.state.firstName,
+          lastName: this.state.lastName,
+          address: {
+            address: this.state.address,
+            city: this.state.city,
+            state: this.state.state,
+            zipCode: this.state.zipCode,
+            country: this.state.country
+          },
+          phonePersonal: this.state.phonePersonal,
+          imagePreviewUrl: this.state.imagePreviewUrl,
+          profesional: this.state.profesional,
+          emailBussiness: this.state.emailBussiness,
+          phoneBussiness: this.state.phoneBussiness,
+
+          media: this.state.media,
+          social: {
+            facebook: this.state.facebook,
+            instagram: this.state.instagram,
+            linkedin: this.state.linkedin,
+            twitter: this.state.twitter
+          }
+        },
+        expertises: this.state.expertises
+      };
+
+      API.saveUserInfo(newUser).then(
+        this.props.onRegister(this.state.firstName)
+      );
+    }
+
     this.setState(state => ({
       activeStep: state.activeStep + 1
     }));
@@ -103,21 +159,57 @@ class Checkout extends React.Component {
     this.setState({ [prop]: event.target.checked });
   };
 
-  handleSelection = e => {
-    console.log(e.target.files[0].name);
-    e.preventDefault();
+  handleExpertisesChange = prop => event => {
+    let expertises = [...this.state.expertises];
 
-    let reader = new FileReader();
+    if (event.target.checked) {
+      //Check
+      expertises.push(event.target.value);
+      this.state.categories.find(
+        e => e._id === event.target.value
+      ).checked = true;
+    } else {
+      //Uncheck
+      expertises = expertises.filter(element => element !== event.target.value);
+      this.state.categories.find(
+        e => e._id === event.target.value
+      ).checked = false;
+    }
+
+    this.setState({ [prop]: expertises });
+  };
+
+  handleSelection = e => {
+    e.preventDefault();
     let file = e.target.files[0];
 
+    if (file) {
+      this.setState({
+        imagePreviewUrl:
+          "https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif"
+      });
+      STORAGE.uploadImage(
+        this.state.id_firebase,
+        file,
+        "avatar",
+        imagePreviewUrl => {
+          this.setState({
+            file: file,
+            imagePreviewUrl: imagePreviewUrl
+          });
+        }
+      );
+    }
+
+    /* CODE FOR LOCAL READING
+    let reader = new FileReader();
     reader.onloadend = () => {
       this.setState({
         file: file,
         imagePreviewUrl: reader.result
       });
     };
-
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(file);*/
   };
 
   getStepContent = step => {
@@ -143,8 +235,11 @@ class Checkout extends React.Component {
           <ProfessionalInfo
             onChange={this.handleChange}
             onChecked={this.handleCheckedChange}
+            expertisesChange={this.handleExpertisesChange}
+            phoneBussiness={this.state.phoneBussiness}
+            emailBussiness={this.state.emailBussiness}
             profesional={this.state.profesional}
-            expertises={this.state.expertises}
+            categories={this.state.categories}
             media={this.state.media}
             facebook={this.state.facebook}
             instagram={this.state.instagram}
@@ -180,12 +275,8 @@ class Checkout extends React.Component {
             <React.Fragment>
               {activeStep === steps.length ? (
                 <React.Fragment>
-                  <Typography variant="h5" gutterBottom>
-                    Registration Completed Successfully
-                  </Typography>
-                  <Typography variant="subtitle1">
-                    Thank you for registering with us, please go back to the
-                    main page to log in.
+                  <Typography variant="h5" gutterBottom align="center">
+                    Registration Completed Successfully!
                   </Typography>
                 </React.Fragment>
               ) : (
