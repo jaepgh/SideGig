@@ -10,25 +10,35 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import CardMedia from '@material-ui/core/CardMedia';
+import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import AuthBtn from "../../components/AuthBtn";
 
 const styles = theme => ({
   root: {
-    width: '90%',
     marginTop: 30,
-    marginBottom: 10
+    marginBottom: 10,
+    backgroundColor: theme.palette.background.paper,
+    maxWidth: 1300,
+    
   },
   button: {
     marginTop: theme.spacing.unit,
     marginRight: theme.spacing.unit,
   },
+
   actionsContainer: {
     marginBottom: theme.spacing.unit * 2,
   },
   resetContainer: {
     padding: theme.spacing.unit * 3,
+    
   },
   media: {
-    height: 300,
+    height: 340,
+    
+    
   },
 });
 
@@ -74,13 +84,15 @@ class VerticalLinearStepper extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, onAuthenticate } = this.props;
     const steps = getSteps();
     const { activeStep } = this.state;
     
 
     return (
       <div className={classes.root}>
+      <List component="nav">
+      <ListItem button>
         <Grid container spacing={24}>
           <Grid item xs={1}>
             <Paper className={classes.paper}></Paper>
@@ -112,6 +124,7 @@ class VerticalLinearStepper extends React.Component {
                             className={classes.button}
                           >
                             {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                            
                           </Button>
                         </div>
                       </div>
@@ -123,7 +136,15 @@ class VerticalLinearStepper extends React.Component {
             {activeStep === steps.length && (
               <Paper square elevation={0} className={classes.resetContainer}>
                 <Typography>Now sign up and post some Gigs</Typography>
-                <Button onClick={this.handleReset} className={classes.button}>
+            <AuthBtn
+              linkMessage="Register" 
+              tittle="Create your acount"
+              variant="contained"
+              color="primary"
+              register={true}
+              onAuthenticate={onAuthenticate}
+            />
+            <Button onClick={this.handleReset} className={classes.button}>
                   Back to top
             </Button>
               </Paper>
@@ -138,7 +159,9 @@ class VerticalLinearStepper extends React.Component {
         />
           </Grid>
         </Grid>
-        
+        </ListItem>
+        </List>
+        <Divider />
         
       </div>
     );

@@ -8,12 +8,16 @@ import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import AuthBtn from "../../components/AuthBtn";
 
+
+
 const styles = {
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    position: "relative"
+    
   },
   grow: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   menuButton: {
     marginLeft: -12,
@@ -21,15 +25,17 @@ const styles = {
   },
   row: {
     display: "flex",
-    justifyContent: "center"
+    justifyContent: "center",
+    position: "relative"
   },
   avatar: {
     margin: 10
   },
   bigAvatar: {
-    width: 90,
-    height: 80
+    width: 50,
+    height: 50
   }
+  
 };
 
 function ButtonAppBar(props) {
@@ -45,17 +51,21 @@ function ButtonAppBar(props) {
               src="./logo.png"
               className={classNames(classes.avatar, classes.bigAvatar)}
             />
-            <Typography variant="h3" className={classes.grow}>
+            <Typography variant="h3" color="inherit" className={classes.grow}>
               SideGig
             </Typography>
             <AuthBtn
               linkMessage="Log In"
+              
+              color="inherit"
               tittle="Welcome back"
               register={false}
               onAuthenticate={onAuthenticate}
             />
             <AuthBtn
-              linkMessage="Register"
+              linkMessage="Register" 
+              
+              color="inherit"
               tittle="Create your acount"
               register={true}
               onAuthenticate={onAuthenticate}

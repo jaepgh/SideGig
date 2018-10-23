@@ -9,11 +9,18 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import CardMedia from '@material-ui/core/CardMedia';
 import Grid from '@material-ui/core/Grid';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import AuthBtn from "../../components/AuthBtn";
+
 
 const styles = theme => ({
   root: {
-    width: '90%',
-    marginBottom: 30
+    maxWidth: 1300,
+    marginBottom: 30,
+    marginTop: 50,
+    backgroundColor: theme.palette.background.paper,
+    maxWidth: 1300,
   },
   backButton: {
     marginRight: theme.spacing.unit,
@@ -68,12 +75,14 @@ class HorizontalLabelPositionBelowStepper extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, onAuthenticate } = this.props;
     const steps = getSteps();
     const { activeStep } = this.state;
 
     return (
       <div className={classes.root}>
+      <List component="nav">
+      <ListItem button>
       <Grid container spacing={24}>
           <Grid item xs={1}>
             <Paper className={classes.paper}></Paper>
@@ -103,6 +112,14 @@ class HorizontalLabelPositionBelowStepper extends React.Component {
           {this.state.activeStep === steps.length ? (
             <div>
               <Typography className={classes.instructions}>Now sign up and get some Gigs</Typography>
+              <AuthBtn
+              linkMessage="Register" 
+              tittle="Create your acount"
+              variant="contained"
+              color="primary"
+              register={true}
+              onAuthenticate={onAuthenticate}
+            />
               <Button onClick={this.handleReset}>Reset</Button>
             </div>
           ) : (
@@ -126,6 +143,8 @@ class HorizontalLabelPositionBelowStepper extends React.Component {
         </Grid>
           
           </Grid>
+          </ListItem>
+        </List>
       </div>
     );
   }

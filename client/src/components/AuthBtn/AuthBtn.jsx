@@ -21,7 +21,7 @@ const styles = theme => ({
     [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
       width: 400,
       marginLeft: "auto",
-      marginRight: "auto"
+      marginRight: "auto",
     }
   },
   center: {
@@ -91,7 +91,10 @@ class SignIn extends React.Component {
     const { linkMessage, tittle, classes, fullScreen } = this.props;
     return (
       <div>
-        <Button onClick={this.handleClickOpen}>{linkMessage}</Button>
+        <Button onClick={this.handleClickOpen} variant={this.props.variant}
+              color={this.props.color}>{linkMessage}
+        
+        </Button>
         <Dialog
           fullScreen={fullScreen}
           open={this.state.open}

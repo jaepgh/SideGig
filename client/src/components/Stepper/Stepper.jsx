@@ -10,6 +10,9 @@ import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import SwipeableViews from "react-swipeable-views";
 import { autoPlay } from "react-swipeable-views-utils";
 import Grid from "@material-ui/core/Grid";
+import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -44,7 +47,9 @@ const styles = theme => ({
     maxWidth: 1300,
     flexGrow: 1,
     marginTop: 60,
-    marginBottom: 60
+    marginBottom: 60,
+    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.palette.background.paper,
   },
   header: {
     display: "flex",
@@ -65,6 +70,7 @@ const styles = theme => ({
     gridTemplateColumns: "repeat(6, 2fr)",
     gridGap: `${theme.spacing.unit * 6}px`
   }
+
 });
 
 class SwipeableTextMobileStepper extends React.Component {
@@ -95,6 +101,8 @@ class SwipeableTextMobileStepper extends React.Component {
 
     return (
       <div className={classes.root}>
+      <List component="nav">
+      <ListItem button>
         <Grid container spacing={24}>
           <Grid item xs={1}>
             <Paper className={classes.paper} />
@@ -164,6 +172,9 @@ class SwipeableTextMobileStepper extends React.Component {
             </Typography>
           </Grid>
         </Grid>
+        </ListItem>
+        </List>
+        <Divider />
       </div>
     );
   }
