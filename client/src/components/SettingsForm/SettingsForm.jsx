@@ -78,7 +78,7 @@ class SettingsForm extends React.Component {
     twitter: ""
   };
 
-  componentWillMount = () => {
+  componentDidMount() {
     API.getUserInfo(this.props.id_firebase).then(dataUser => {
       this.setState({
         //Personal section
@@ -104,24 +104,21 @@ class SettingsForm extends React.Component {
         linkedin: dataUser.data.social.linkedin,
         twitter: dataUser.data.social.twitter
       });
+      API.getCategories()
+        .then(res => {
+          const categories = res.data;
+          if (this.state.expertises)
+            categories.forEach(element => {
+              if (this.state.expertises.find(e => e === element._id)) {
+                element.checked = true;
+              } else {
+                element.checked = false;
+              }
+            });
+          this.setState({ categories: categories });
+        })
+        .catch(err => console.log(err));
     });
-  };
-
-  componentDidMount() {
-    API.getCategories()
-      .then(res => {
-        const categories = res.data;
-        if (this.state.expertises)
-          categories.forEach(element => {
-            if (this.state.expertises.find(e => e === element._id)) {
-              element.checked = true;
-            } else {
-              element.checked = false;
-            }
-          });
-        this.setState({ categories: categories });
-      })
-      .catch(err => console.log(err));
   }
 
   handleSubmit = () => {

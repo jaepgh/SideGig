@@ -19,6 +19,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import { mainListItems, secondaryListItems } from "../../components/ListItems";
+import WallWabs from "../../components/WallTabs";
 
 const drawerWidth = 240;
 
@@ -209,10 +210,8 @@ class Home extends React.Component {
             <Divider />
           </Drawer>
           <main className={classes.content}>
-            {/*Here goes everything else*/}
-            <br />
-            <br />
-            <h1>You are in my wall!</h1>
+            <div className={classes.appBarSpacer} />
+            <WallWabs />
           </main>
         </div>
       </React.Fragment>
