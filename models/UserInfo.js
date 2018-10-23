@@ -23,7 +23,7 @@ const UserInfoSchema = new Schema({
   imagePreviewUrl: { type: String },
 
   //Profesional Info
-  profesional: { type: Boolean, required: true, default: true },
+  profesional: { type: Boolean, default: true },
   emailBussiness: {
     type: String,
     unique: true,
@@ -31,7 +31,7 @@ const UserInfoSchema = new Schema({
   },
   phoneBussiness: { type: String, required: true },
 
-  media: { type: Boolean, required: true, default: true },
+  media: { type: Boolean, default: true },
   social: {
     facebook: String,
     instagram: String,

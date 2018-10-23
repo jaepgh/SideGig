@@ -13,8 +13,8 @@ class Landing extends Component {
         <React.Fragment>
           <AppBar onAuthenticate={onAuthenticate} />
           <Stepper />
-          <Users />
-          <Contractors />
+          <Users onAuthenticate={onAuthenticate} />
+          <Contractors onAuthenticate={onAuthenticate} />
         </React.Fragment>
       </div>
     );

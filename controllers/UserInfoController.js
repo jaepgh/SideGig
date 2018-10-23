@@ -18,14 +18,17 @@ module.exports = {
       .then(dbModel =>
         db.UserInfo.findOneAndUpdate(
           { _id: dbModel._id },
-          { $set: { expertises: req.body.expertises } },
+          { $push: { expertises: req.body.expertises } },
           { new: true },
           (err, doc) => {
             res.json(doc);
           }
         )
       )
-      .catch(err => res.status(422).json(err));
+      .catch(err => {
+        res.status(422).json(err);
+        console.log(err);
+      });
   },
   update: function(req, res) {
     console.log(req.params.id);

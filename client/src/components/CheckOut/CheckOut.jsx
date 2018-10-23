@@ -59,7 +59,6 @@ class Checkout extends React.Component {
     categories: [],
 
     //Personal section
-    id_firebase: this.props.id_firebase,
     file: "",
     imagePreviewUrl: "https://openclipart.org/download/288063/user_upload.svg",
     firstName: "",
@@ -102,7 +101,7 @@ class Checkout extends React.Component {
     if (this.state.activeStep + 1 === 2) {
       const newUser = {
         user: {
-          id_firebase: this.state.id_firebase,
+          id_firebase: this.props.id_firebase,
           firstName: this.state.firstName,
           lastName: this.state.lastName,
           address: {
@@ -128,14 +127,21 @@ class Checkout extends React.Component {
         },
         expertises: this.state.expertises
       };
-      API.saveUserInfo(newUser).then(
-       this.props.onRegister(this.state.firstName)
-      ).catch(err => console.log(err));
+      API.saveUserInfo(newUser)
+        .then(data => {
+          if (data) {
+            this.props.onRegister(this.state.firstName);
+            this.setState(state => ({
+              activeStep: state.activeStep + 1
+            }));
+          }
+        })
+        .catch(err => console.log(err));
+    } else {
+      this.setState(state => ({
+        activeStep: state.activeStep + 1
+      }));
     }
-
-    this.setState(state => ({
-      activeStep: state.activeStep + 1
-    }));
   };
 
   handleBack = () => {
@@ -188,7 +194,7 @@ class Checkout extends React.Component {
           "https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif"
       });
       STORAGE.uploadImage(
-        this.state.id_firebase,
+        this.props.id_firebase,
         file,
         "avatar",
         imagePreviewUrl => {
