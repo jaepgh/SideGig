@@ -6,29 +6,29 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/sidegig");
 
 const categorySeed = [
   {
-    name: "Category 1",
-    description: "This is the category 1"
+    name: "Auto",
+    description: "Includes but not limited to: Cleaning, Repairs/Maintenance, Towing etc.."
   },
   {
-    name: "Category 2",
-    description: "This is the category 2"
+    name: "Electronics",
+    description: "Includes but not limited to: Cell Phones, Computers, Video Games etc.."
   },
   {
-    name: "Category 3",
-    description: "This is the category 3"
+    name: "Home & Garden",
+    description: "Includes but not limited to: Appliances, Cleaning Services, Repairs/Maintenance, Yard Services etc.."
   },
   {
-    name: "Category 4",
-    description: "This is the category 4"
+    name: "Personal",
+    description: "Includes but not limited to: Clothing, Glasses, Watches etc.."
   },
-  {
-    name: "Category 5",
-    description: "This is the category 5"
-  },
-  {
-    name: "Category 6",
-    description: "This is the category 6"
-  }
+  // {
+  //   name: "Category 5",
+  //   description: "This is the category 5"
+  // },
+  // {
+  //   name: "Category 6",
+  //   description: "This is the category 6"
+  // }
 ];
 
 db.PostCategory.deleteMany({})
@@ -41,3 +41,4 @@ db.PostCategory.deleteMany({})
     console.error(err);
     process.exit(1);
   });
+
