@@ -42,3 +42,30 @@ db.PostCategory.deleteMany({})
     process.exit(1);
   });
 
+  // (Kas) This file empties the post new job collection and inserts the values predefine below
+
+const postnewjobSeed = [
+  {
+    title: 'Broken iPhone screen',
+    location: 'Miami, Fl',
+    description: 'iPhone 6 plus. The LCD is broken also.',
+    category: 'Electronics',
+    price: 40,
+    time_frame: Date(),
+    active: Boolean()
+
+},
+
+];
+
+db.PostInfo.deleteMany({})
+  .then(() => db.PostInfo.collection.insertMany(postnewjobSeed))
+  .then(data => {
+    console.log(data.result.n + " Job inserted!");
+    process.exit(0);
+  })
+  .catch(err => {
+    console.error(err);
+    process.exit(1);
+  });
+
