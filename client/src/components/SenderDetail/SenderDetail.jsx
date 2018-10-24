@@ -7,10 +7,10 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import withMobileDialog from "@material-ui/core/withMobileDialog";
-import DetailsIcon from "@material-ui/icons/Details";
-import MobileStepper from "../MobileStepper";
+import Avatar from "@material-ui/core/Avatar";
+import { Typography } from "@material-ui/core";
 
-class JobDetailDialog extends React.Component {
+class SenderDetail extends React.Component {
   state = {
     open: false
   };
@@ -28,23 +28,30 @@ class JobDetailDialog extends React.Component {
 
     return (
       <div>
-        <DetailsIcon aria-label="Details" onClick={this.handleClickOpen} />
+        <Avatar
+          alt="Profile Picture"
+          src={this.props.person}
+          onClick={this.handleClickOpen}
+        />
         <Dialog
           fullScreen={fullScreen}
           open={this.state.open}
           onClose={this.handleClose}
           aria-labelledby="responsive-dialog-title"
         >
-          <DialogTitle id="responsive-dialog-title">{"Job Title"}</DialogTitle>
+          <DialogTitle id="responsive-dialog-title">{"Jonh Doe"}</DialogTitle>
           <DialogContent>
-            <MobileStepper imageData={this.props.imageData} />
-            <DialogContentText>
-              Let Google help apps determine location. This means sending
-              anonymous location data to Google, even when no apps are running.
-            </DialogContentText>
+            <Typography>
+              <b>Telephone: </b>
+              {"305-486-8989"}
+            </Typography>
+            <Typography>
+              <b>Email: </b>
+              {"mybussinesemail@gmail.com"}
+            </Typography>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
+            <Button onClick={this.handleClose} color="primary" autoFocus>
               Close
             </Button>
           </DialogActions>
@@ -54,8 +61,8 @@ class JobDetailDialog extends React.Component {
   }
 }
 
-JobDetailDialog.propTypes = {
+SenderDetail.propTypes = {
   fullScreen: PropTypes.bool.isRequired
 };
 
-export default withMobileDialog()(JobDetailDialog);
+export default withMobileDialog()(SenderDetail);

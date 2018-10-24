@@ -1,26 +1,33 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-
 const PostInfoSchema = new Schema({
   //Atributes for PostInfo
-  id_firebase: {
+  creator_id: {
     type: String,
     trim: true,
     required: "Username is Required"
   },
-  title: String,
-  location: String,
+  contractor_id: String,
+
+  title: { type: String, required: true },
   description: String,
+  address: {
+    address: { type: String, required: true },
+    city: { type: String, required: true },
+    state: { type: String, required: true },
+    zipCode: { type: String, required: true },
+    country: { type: String, required: true }
+  },
+  price: Number,
+  dueDate: Date,
   category: {
-    name: String,
+    type: Schema.Types.ObjectId,
+    ref: "PostCategory"
   },
-  sub_cat: { 
-    name: String,
-  },
-  price: mongoose.Decimal128,
-  time_frame: Date,
-  active: Boolean
+
+  assigned: { type: Boolean, default: false },
+  active: { type: Boolean, default: true }
 });
 
 const PostInfo = mongoose.model("PostInfo", PostInfoSchema);

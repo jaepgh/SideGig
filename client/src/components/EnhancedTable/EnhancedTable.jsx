@@ -20,6 +20,7 @@ import DetailsIcon from "@material-ui/icons/Details";
 import EditIcon from "@material-ui/icons/Edit";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import { lighten } from "@material-ui/core/styles/colorManipulator";
+import JobDetailDialog from "../JobDetail";
 
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -58,6 +59,34 @@ const rows = [
   { id: "location", numeric: true, disablePadding: false, label: "Location" },
   { id: "price", numeric: true, disablePadding: false, label: "Price ($)" },
   { id: "duedate", numeric: true, disablePadding: false, label: "Due Date" }
+];
+
+const imageData = [
+  {
+    label: "San Francisco – Oakland Bay Bridge, United States",
+    imgPath:
+      "https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60"
+  },
+  {
+    label: "Bird",
+    imgPath:
+      "https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60"
+  },
+  {
+    label: "Bali, Indonesia",
+    imgPath:
+      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250&q=80"
+  },
+  {
+    label: "NeONBRAND Digital Marketing, Las Vegas, United States",
+    imgPath:
+      "https://images.unsplash.com/photo-1518732714860-b62714ce0c59?auto=format&fit=crop&w=400&h=250&q=60"
+  },
+  {
+    label: "Goč, Serbia",
+    imgPath:
+      "https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60"
+  }
 ];
 
 class EnhancedTableHead extends React.Component {
@@ -151,7 +180,7 @@ let EnhancedTableToolbar = props => {
             {props.job ? (
               <Tooltip title="Details">
                 <IconButton aria-label="Details">
-                  <DetailsIcon />
+                  <JobDetailDialog imageData={imageData} />
                 </IconButton>
               </Tooltip>
             ) : (

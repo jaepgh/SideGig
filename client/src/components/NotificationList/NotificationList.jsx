@@ -1,22 +1,15 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
+import { withStyles } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListSubheader from "@material-ui/core/ListSubheader";
-import Avatar from "@material-ui/core/Avatar";
-import MenuIcon from "@material-ui/icons/Menu";
-import AddIcon from "@material-ui/icons/Add";
-import SearchIcon from "@material-ui/icons/Search";
-import MoreIcon from "@material-ui/icons/MoreVert";
+import SenderDetail from "../SenderDetail";
 
 const styles = theme => ({
   text: {
@@ -38,6 +31,13 @@ const styles = theme => ({
   },
   subHeader: {
     backgroundColor: theme.palette.background.paper
+  },
+  button: {
+    margin: theme.spacing.unit
+  },
+  selected: {
+    color: "green",
+    background: "red"
   }
 });
 
@@ -48,7 +48,8 @@ const messages = [
     secondary:
       "I'll be in the neighbourhood this week. Let's grab a bite to eat",
     person:
-      "https://i2.wp.com/www.naturallysensible.com/wp-content/uploads/2017/10/login-user-icon.png?resize=200%2C200&ssl=1"
+      "https://i2.wp.com/www.naturallysensible.com/wp-content/uploads/2017/10/login-user-icon.png?resize=200%2C200&ssl=1",
+    read: true
   },
   {
     id: 2,
@@ -56,7 +57,8 @@ const messages = [
     secondary: `Do you have a suggestion for a good present for John on his work
       anniversary. I am really confused & would love your thoughts on it.`,
     person:
-      "https://i2.wp.com/www.naturallysensible.com/wp-content/uploads/2017/10/login-user-icon.png?resize=200%2C200&ssl=1"
+      "https://i2.wp.com/www.naturallysensible.com/wp-content/uploads/2017/10/login-user-icon.png?resize=200%2C200&ssl=1",
+    read: false
   },
   {
     id: 3,
@@ -64,14 +66,16 @@ const messages = [
     secondary:
       "I am try out this new BBQ recipe, I think this might be amazing",
     person:
-      "https://i2.wp.com/www.naturallysensible.com/wp-content/uploads/2017/10/login-user-icon.png?resize=200%2C200&ssl=1"
+      "https://i2.wp.com/www.naturallysensible.com/wp-content/uploads/2017/10/login-user-icon.png?resize=200%2C200&ssl=1",
+    read: false
   },
   {
     id: 4,
     primary: "Yes!",
     secondary: "I have the tickets to the ReactConf for this year.",
     person:
-      "https://i2.wp.com/www.naturallysensible.com/wp-content/uploads/2017/10/login-user-icon.png?resize=200%2C200&ssl=1"
+      "https://i2.wp.com/www.naturallysensible.com/wp-content/uploads/2017/10/login-user-icon.png?resize=200%2C200&ssl=1",
+    read: true
   },
   {
     id: 5,
@@ -79,7 +83,8 @@ const messages = [
     secondary:
       "My appointment for the doctor was rescheduled for next Saturday.",
     person:
-      "https://i2.wp.com/www.naturallysensible.com/wp-content/uploads/2017/10/login-user-icon.png?resize=200%2C200&ssl=1"
+      "https://i2.wp.com/www.naturallysensible.com/wp-content/uploads/2017/10/login-user-icon.png?resize=200%2C200&ssl=1",
+    read: false
   },
   {
     id: 6,
@@ -88,7 +93,8 @@ const messages = [
       navigation drawer or overflow menu) open as bottom sheets at a higher elevation
       than the bar.`,
     person:
-      "https://i2.wp.com/www.naturallysensible.com/wp-content/uploads/2017/10/login-user-icon.png?resize=200%2C200&ssl=1"
+      "https://i2.wp.com/www.naturallysensible.com/wp-content/uploads/2017/10/login-user-icon.png?resize=200%2C200&ssl=1",
+    read: true
   },
   {
     id: 7,
@@ -96,7 +102,8 @@ const messages = [
     secondary: `Who wants to have a cookout this weekend? I just got some furniture
       for my backyard and would love to fire up the grill.`,
     person:
-      "https://i2.wp.com/www.naturallysensible.com/wp-content/uploads/2017/10/login-user-icon.png?resize=200%2C200&ssl=1"
+      "https://i2.wp.com/www.naturallysensible.com/wp-content/uploads/2017/10/login-user-icon.png?resize=200%2C200&ssl=1",
+    read: true
   }
 ];
 
@@ -107,12 +114,38 @@ function NotificationList(props) {
       <CssBaseline />
       <Paper square className={classes.paper}>
         <List className={classes.list}>
-          {messages.map(({ id, primary, secondary, person }) => (
+          {messages.map(({ id, primary, secondary, person, read }) => (
             <Fragment key={id}>
               <ListSubheader className={classes.subHeader}>Today</ListSubheader>
               <ListItem button>
-                <Avatar alt="Profile Picture" src={person} />
-                <ListItemText primary={primary} secondary={secondary} />
+                <SenderDetail person={person} />
+                <ListItemText
+                  disableTypography
+                  primary={
+                    <Typography>{read ? primary : <b>{primary}</b>}</Typography>
+                  }
+                  secondary={secondary}
+                />
+                {read ? (
+                  <React.Fragment />
+                ) : (
+                  <React.Fragment>
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      className={classes.button}
+                    >
+                      Accept
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      color="secondary"
+                      className={classes.button}
+                    >
+                      Reject
+                    </Button>
+                  </React.Fragment>
+                )}
               </ListItem>
             </Fragment>
           ))}

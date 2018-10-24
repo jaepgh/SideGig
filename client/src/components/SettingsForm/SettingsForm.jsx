@@ -249,6 +249,7 @@ class SettingsForm extends React.Component {
                 linkedin={this.state.linkedin}
                 twitter={this.state.twitter}
               />
+              <Divider className={classes.divider} />
               <Button
                 className={classes.button}
                 variant="contained"
