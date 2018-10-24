@@ -8,6 +8,9 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import FormGroup from "@material-ui/core/FormGroup";
+import AddIcon from "@material-ui/icons/Add";
+import Icon from "@material-ui/core/Icon";
+import DeleteIcon from "@material-ui/icons/Delete";
 import Grid from "@material-ui/core/Grid";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
@@ -16,6 +19,7 @@ import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import API from "../../utils/API";
 import STORAGE from "../../utils/STORAGE";
+import ImageList from "../ImageList/";
 
 const styles = theme => ({
   appBar: {
@@ -102,29 +106,18 @@ class PostJobForm extends React.Component {
     this.setState({ [prop]: expertises });
   };
 
-  handleSelection = e => {
+  addImage = e => {
     e.preventDefault();
-    let file = e.target.files[0];
-
-    if (file) {
-      this.setState({
-        imagePreviewUrl:
-          "https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif"
-      });
-      STORAGE.uploadImage(
-        this.state.id_firebase,
-        file,
-        "avatar",
-        imagePreviewUrl => {
-          this.setState({
-            file: file,
-            imagePreviewUrl: imagePreviewUrl
-          });
-        }
-      );
+    if (this.state.files) {
+      const files = this.state.files;
+      files.push(e.target.files[0]);
+      this.setState({ files });
+    } else {
+      const files = [];
+      files.push(e.target.files[0]);
+      this.setState({ files });
     }
   };
-
   render() {
     const { classes } = this.props;
 
@@ -274,6 +267,13 @@ class PostJobForm extends React.Component {
                       ))}
                     </RadioGroup>
                   </FormControl>
+                </Grid>
+                <Grid item xs={12} sm={12}>
+                  <Typography variant="h6">Images</Typography>
+                  <ImageList
+                    files={this.state.files}
+                    addImage={this.addImage}
+                  />
                 </Grid>
               </Grid>
               <Divider className={classes.divider} />
