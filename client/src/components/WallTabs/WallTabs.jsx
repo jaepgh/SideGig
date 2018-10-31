@@ -14,62 +14,62 @@ import NotificationList from "../NotificationList";
 const myjobs = [
   {
     id: 1,
-    tittle: "Job #1",
-    category: "Cat 1",
+    title: "Broken Xbox One Fix ASAP",
+    category: "Electronics",
     location: "Miami, FL",
     price: 100,
-    duedate: "10/21/2018"
+    duedate: "11/01/2018"
   },
   {
     id: 2,
-    tittle: "Job #2",
-    category: "Cat 1",
+    title: "Help!!! My Laptop is Going Slow!",
+    category: "Electronics ",
     location: "Miami, FL",
     price: 100,
-    duedate: "10/21/2018"
+    duedate: "10/31/2018"
   },
   {
     id: 3,
-    tittle: "Job #3",
-    category: "Cat 1",
+    title: "iPhone 10 Screen Broke Again",
+    category: "Electronics",
     location: "Miami, FL",
-    price: 100,
-    duedate: "10/21/2018"
+    price: 250,
+    duedate: "11/24/2018"
   },
   {
     id: 4,
-    tittle: "Job #4",
-    category: "Cat 1",
+    title: "MacBook Pro Has a Virus?",
+    category: "Electronics",
     location: "Miami, FL",
     price: 100,
-    duedate: "10/21/2018"
+    duedate: "10/25/2018"
   }
 ];
 
 const myposts = [
   {
     id: 1,
-    tittle: "Post #1",
-    category: "Cat 1",
+    title: "Broken A/C Please Help",
+    category: "Auto",
     location: "Miami, FL",
-    price: 100,
-    duedate: "10/21/2018"
+    price: 600,
+    duedate: "10/25/2018"
   },
   {
     id: 2,
-    tittle: "Post #2",
-    category: "Cat 1",
+    title: "Constant Running Toilet",
+    category: "Home & Garden",
     location: "Miami, FL",
-    price: 100,
-    duedate: "10/21/2018"
+    price: 25,
+    duedate: "10/25/2018"
   },
   {
     id: 3,
-    tittle: "Post #3",
-    category: "Cat 1",
+    title: "Thermostat Replacement",
+    category: "Home & Garden",
     location: "Miami, FL",
-    price: 100,
-    duedate: "10/21/2018"
+    price: 50,
+    duedate: "10/28/2018"
   }
 ];
 

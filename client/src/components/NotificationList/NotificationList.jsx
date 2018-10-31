@@ -44,38 +44,37 @@ const styles = theme => ({
 const messages = [
   {
     id: 1,
-    primary: "Brunch this week?",
+    primary: "Toilet Repair",
     secondary:
-      "I'll be in the neighbourhood this week. Let's grab a bite to eat",
+      "Could you give me more info on what you need done?",
     person:
       "https://i2.wp.com/www.naturallysensible.com/wp-content/uploads/2017/10/login-user-icon.png?resize=200%2C200&ssl=1",
-    read: true
+    read: false
   },
   {
     id: 2,
-    primary: "Birthday Gift",
-    secondary: `Do you have a suggestion for a good present for John on his work
-      anniversary. I am really confused & would love your thoughts on it.`,
+    primary: "I can fix your toilet",
+    secondary: `It would be an easy fix. It won't cost as much as you expect. Let me know if you're intrested in me working for you.`,
     person:
       "https://i2.wp.com/www.naturallysensible.com/wp-content/uploads/2017/10/login-user-icon.png?resize=200%2C200&ssl=1",
     read: false
   },
   {
     id: 3,
-    primary: "Recipe to try",
+    primary: "AC Unit Repair- Auto",
     secondary:
-      "I am try out this new BBQ recipe, I think this might be amazing",
+      "I can do it. Call me. 321-122-4022",
     person:
       "https://i2.wp.com/www.naturallysensible.com/wp-content/uploads/2017/10/login-user-icon.png?resize=200%2C200&ssl=1",
     read: false
   },
   {
     id: 4,
-    primary: "Yes!",
-    secondary: "I have the tickets to the ReactConf for this year.",
+    primary: "Thermostat Fix",
+    secondary: "I would do it for you, but it's an easy fix to save yourself some money. Google it!",
     person:
       "https://i2.wp.com/www.naturallysensible.com/wp-content/uploads/2017/10/login-user-icon.png?resize=200%2C200&ssl=1",
-    read: true
+    read: false
   },
   {
     id: 5,

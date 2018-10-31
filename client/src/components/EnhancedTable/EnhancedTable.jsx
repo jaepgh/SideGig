@@ -50,10 +50,10 @@ function getSorting(order, orderBy) {
 
 const rows = [
   {
-    id: "tittle",
+    id: "title",
     numeric: false,
     disablePadding: true,
-    label: "Job Tittle"
+    label: "Job Title"
   },
   { id: "category", numeric: true, disablePadding: false, label: "Category" },
   { id: "location", numeric: true, disablePadding: false, label: "Location" },
@@ -321,7 +321,7 @@ class EnhancedTable extends React.Component {
                         <Checkbox checked={isSelected} />
                       </TableCell>
                       <TableCell component="th" scope="row" padding="none">
-                        {n.tittle}
+                        {n.title}
                       </TableCell>
                       <TableCell numeric>{n.category}</TableCell>
                       <TableCell numeric>{n.location}</TableCell>
