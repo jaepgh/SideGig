@@ -41,8 +41,8 @@ const tutorialSteps = [
     imgPath:
       'https://www.knoxmercury.com/wp-content/uploads/2017/01/COVER_0112_DreamBikes1-793x529.jpg',
   },
-  
-    
+
+
 ];
 
 const styles = theme => ({
@@ -190,53 +190,59 @@ class SwipeableTextMobileStepper extends React.Component {
         </Toolbar>
         <Grid container spacing={24}>
           <Grid item xs={12} sm={6}>
-          <Typography variant="h5" color="inherit" className={classes.grow}>
-            100 $$
+            <Typography variant="h5" color="inherit" className={classes.grow}>
+              100 $$
           </Typography>
           </Grid>
           <Grid item xs={12} sm={6}>
-          <Typography variant="h5" color="inherit" className={classes.grow}>
-            1 Week
+            <Typography variant="h5" color="inherit" className={classes.grow}>
+              1 Week
           </Typography>
           </Grid>
         </Grid>
-        
+
         <CardActions className={classes.actions} disableActionSpacing>
-        <Grid container spacing={24}>
-        <Grid item xs={12} sm={4}>
-        
-        <Button size="small" >
-              {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-              Back
+          <Grid container spacing={24}>
+            <Grid item xs={12} sm={4}>
+
+              <Button size="small" >
+                {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+                Left
             </Button>
-          
-          </Grid>
-          <Grid item xs={12} sm={4}>
-          <Button size="small">
-              Next
+
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <Button size="small" >
+                Request
+            </Button>
+
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <Button size="small">
+                Right
               {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
-            </Button>
-          </Grid>
-          <Grid item xs={12} sm={4}>
-          <IconButton
-            className={classNames(classes.expand, {
-              [classes.expandOpen]: this.state.expanded,
-            })}
-            onClick={this.handleExpandClick}
-            aria-expanded={this.state.expanded}
-            aria-label="Show more"
-          >
-            <ExpandMoreIcon />
-          </IconButton>
-          </Grid>
+              </Button>
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <IconButton
+                className={classNames(classes.expand, {
+                  [classes.expandOpen]: this.state.expanded,
+                })}
+                onClick={this.handleExpandClick}
+                aria-expanded={this.state.expanded}
+                aria-label="Show more"
+              >
+                <ExpandMoreIcon />
+              </IconButton>
+            </Grid>
           </Grid>
         </CardActions>
         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
           <CardContent>
-          <Typography variant="h5" color="inherit" className={classes.grow}>
-            Description
+            <Typography variant="h5" color="inherit" className={classes.grow}>
+              Description
           </Typography>
-           <Typography paragraph>
+            <Typography paragraph>
               Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet over medium-high
               heat. Add chicken, shrimp and chorizo, and cook, stirring occasionally until lightly
               browned, 6 to 8 minutes. Transfer shrimp to a large plate and set aside, leaving
@@ -251,7 +257,7 @@ class SwipeableTextMobileStepper extends React.Component {
               cook again without stirring, until mussels have opened and rice is just tender, 5 to 7
               minutes more. (Discard any mussels that don’t open.)
             </Typography>
-            
+
           </CardContent>
         </Collapse>
       </Card>
