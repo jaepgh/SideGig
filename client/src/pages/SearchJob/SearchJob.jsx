@@ -19,6 +19,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import { mainListItems, secondaryListItems } from "../../components/ListItems";
+import CardComplex from "../../components/CardComplex";
 
 const drawerWidth = 240;
 
@@ -209,12 +210,16 @@ class PostJob extends React.Component {
             <Divider />
           </Drawer>
           <main className={classes.content}>
-            {/*Here goes everything else*/}
+            
             <br />
             <br />
             <h1>You are in Search Job!</h1>
+            <CardComplex
+            />
           </main>
+          
         </div>
+        
       </React.Fragment>
     );
   }

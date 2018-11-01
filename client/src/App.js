@@ -11,6 +11,7 @@ import Landing from "./pages/Landing";
 import Register from "./pages/Register";
 import PostJob from "./pages/PostJob";
 import SearchJob from "./pages/SearchJob";
+
 import Settings from "./pages/Settings";
 import NoMatch from "./pages/NoMatch";
 import firebase from "./config/firebase";
@@ -166,6 +167,7 @@ class App extends Component {
               registered ? <SearchJob onLogOut={this.onLogOut} /> : <Fragment />
             }
           />
+          
           <Route
             exact
             path="/Post"
