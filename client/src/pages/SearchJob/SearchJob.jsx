@@ -210,16 +210,11 @@ class PostJob extends React.Component {
             <Divider />
           </Drawer>
           <main className={classes.content}>
-            
             <br />
             <br />
-            <h1>You are in Search Job!</h1>
-            <CardComplex
-            />
+            <CardComplex />
           </main>
-          
         </div>
-        
       </React.Fragment>
     );
   }

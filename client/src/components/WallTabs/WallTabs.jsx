@@ -18,7 +18,26 @@ const myjobs = [
     category: "Electronics",
     location: "Miami, FL",
     price: 100,
-    duedate: "11/01/2018"
+    duedate: "11/01/2018",
+    description: "Broken Xbox One Fix ASAP",
+
+    imageData: [
+      {
+        label: "Image 1",
+        imgPath:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2i3UkK_Ff0_ntd4nxX0DxjymbL_QbHOPr5yZ_vunycUeQkdCG"
+      },
+      {
+        label: "Image 2",
+        imgPath:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUCioaz8ilmqHgXekwwt87C-SVy3p6JnDLdGUvf_HR6--IuO1V"
+      },
+      {
+        label: "Image 3",
+        imgPath:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvQfHZaH_rvZ7sgnBt5ezMHYXD0z8i1bPzRecdB46JUtFjDJms"
+      }
+    ]
   },
   {
     id: 2,
@@ -26,7 +45,17 @@ const myjobs = [
     category: "Electronics ",
     location: "Miami, FL",
     price: 100,
-    duedate: "10/31/2018"
+    duedate: "10/31/2018",
+    description:
+      "Help!!! My Laptop is Going Slow, and I need to finish my final project!",
+
+    imageData: [
+      {
+        label: "Image 1",
+        imgPath:
+          "http://www.hpmarket.cz/library/configuration/global/hp-spectre-xt-pro-ultrabook_400x400.jpg"
+      }
+    ]
   },
   {
     id: 3,
@@ -34,7 +63,27 @@ const myjobs = [
     category: "Electronics",
     location: "Miami, FL",
     price: 250,
-    duedate: "11/24/2018"
+    duedate: "11/24/2018",
+    description:
+      "I dropped my Iphone and my screen is now broke, can you please help me replace it.",
+
+    imageData: [
+      {
+        label: "Image 1",
+        imgPath:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZXbRnO53le2gcnOaD7gE38jAUQNVhuF5u-y4eM0g1s4lEgryG"
+      },
+      {
+        label: "Image 2",
+        imgPath:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0ulc097LCzdmLx3LoHqaXgKXHv5LixCQlP79mzlEEgjgooUtm"
+      },
+      {
+        label: "Image 3",
+        imgPath:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlfmXNbiSJXRKJS03vErXo8DG_exoMJ7AqUpir2mttZqszKBK4dA"
+      }
+    ]
   },
   {
     id: 4,
@@ -42,7 +91,22 @@ const myjobs = [
     category: "Electronics",
     location: "Miami, FL",
     price: 100,
-    duedate: "10/25/2018"
+    duedate: "10/25/2018",
+    description:
+      "I recently scan my computer for viruses and looks like I'm infected. Help!",
+
+    imageData: [
+      {
+        label: "Image 1",
+        imgPath:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThrSiUD4vutPY4nD5Bgae-sLIuum39XqhbM90sWGJwOncboDFR"
+      },
+      {
+        label: "Image 2",
+        imgPath:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSP8sKblGL8lO3efwO8BLcjKaRHxRsbXTNYOKoImDeYVREVW3k9SQ"
+      }
+    ]
   }
 ];
 

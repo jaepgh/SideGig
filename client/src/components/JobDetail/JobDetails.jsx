@@ -35,12 +35,13 @@ class JobDetailDialog extends React.Component {
           onClose={this.handleClose}
           aria-labelledby="responsive-dialog-title"
         >
-          <DialogTitle id="responsive-dialog-title">{"Job Title"}</DialogTitle>
+          <DialogTitle id="responsive-dialog-title">
+            {this.props.selectedData.title}
+          </DialogTitle>
           <DialogContent>
-            <MobileStepper imageData={this.props.imageData} />
+            <MobileStepper imageData={this.props.selectedData.imageData} />
             <DialogContentText>
-              Let Google help apps determine location. This means sending
-              anonymous location data to Google, even when no apps are running.
+              {this.props.selectedData.description}
             </DialogContentText>
           </DialogContent>
           <DialogActions>
